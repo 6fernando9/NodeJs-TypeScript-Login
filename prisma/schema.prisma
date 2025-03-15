@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Rol{
+  id Int @id @default(autoincrement())
+  nombre String
+  //solo definimos que tiene muchos usuarios
+  //un rol puede estar en varios objetos usuarios
+  users Usuario[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  permisos Permiso[] @relation("rol_permisos")
+  @@map("roles")
+}
+
+model Usuario{
+  id Int @id @default(autoincrement())
+  nombre String
+  email String @unique
+  password String
+
+  //foranea de rol
+  rolId Int
+
+  //aqui viene la foranea
+  rol Rol @relation(fields: [rolId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("usuarios")
+}
+
+model Permiso{
+    id Int @id @default(autoincrement())
+    nombre String
+    roles Rol[] @relation("rol_permisos")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    @@map("permisos")
+}
+
+model Bitacora_usuario{
+  id Int @id @default(autoincrement())
+  ip String
+  tipo_sesion String
+  username String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("bitacora_usuarios")
+}
