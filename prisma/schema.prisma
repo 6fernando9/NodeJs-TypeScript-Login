@@ -58,6 +58,7 @@ model Permiso{
 
 model Bitacora_usuario{
   id Int @id @default(autoincrement())
+  usuarioId Int
   ip String
   tipo_sesion String
   username String

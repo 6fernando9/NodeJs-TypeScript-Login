@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { createRol, deleteRol, getAllRoles, updateRol } from "../controllers/rol";
+import { errorHandler } from "../error-handler";
 
 const rolRouter: Router = Router();
 
@@ -7,9 +8,9 @@ const rolRouter: Router = Router();
 //desde el main del las rutas viene el /rol, es decir ya esta /api/rol
 
 //ACA USAMOS EL GET,POST,DELETE.UPDATE
-rolRouter.post('/',createRol);
-rolRouter.delete('/:id',deleteRol);
-rolRouter.get('/',getAllRoles);
-rolRouter.put('/:id',updateRol);
+rolRouter.post('/',errorHandler(createRol));
+rolRouter.delete('/:id',errorHandler(deleteRol));
+rolRouter.get('/',errorHandler(getAllRoles));
+rolRouter.put('/:id',errorHandler(updateRol));
 
 export default rolRouter;
