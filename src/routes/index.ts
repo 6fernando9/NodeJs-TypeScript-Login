@@ -1,8 +1,8 @@
 import { Router } from "express";
 import rolRouter from "./rol-router";
 import authRouter from "./auth";
-import { errorHandler } from "../error-handler";
 import permisoRouter from "./permisos-router";
+import comentarioRouter from "./comentario-router";
 
 const rootRouter: Router = Router();
 
@@ -12,4 +12,5 @@ const rootRouter: Router = Router();
 rootRouter.use('/rol',rolRouter);
 rootRouter.use('/auth',authRouter);
 rootRouter.use('/permisos',permisoRouter);
+rootRouter.use('/comentarios',comentarioRouter);
 export default rootRouter;

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const permisos_1 = require("../controllers/permisos");
+const error_handler_1 = require("../error-handler");
+const permisoRouter = (0, express_1.Router)();
+permisoRouter.post('/', (0, error_handler_1.errorHandler)(permisos_1.createPermission));
+permisoRouter.get('/', (0, error_handler_1.errorHandler)(permisos_1.listAllPermission));
+permisoRouter.put('/:id', (0, error_handler_1.errorHandler)(permisos_1.updatePermission));
+permisoRouter.delete("/:id", (0, error_handler_1.errorHandler)(permisos_1.deletePermission));
+exports.default = permisoRouter;

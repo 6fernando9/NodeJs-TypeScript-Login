@@ -72,8 +72,7 @@ export const findRoleById = async (req: Request,res: Response,next: NextFunction
 //el json tendra un objeto permiso
 export const addPermissionToRole = async (req: Request,res: Response,next: NextFunction) => {
 
-    //capturamos el permiso que viene
-    // const validatedData: any;
+    //Validamos los datos que vienen, si sale error entonces lanza la excepcion
     try {
       //verificamos la entrada del permiso a agregar
       const validatedData = UpdatePermissionSchema.parse(req.body);

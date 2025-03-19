@@ -66,3 +66,31 @@ model Bitacora_usuario{
   updatedAt DateTime @updatedAt
   @@map("bitacora_usuarios")
 }
+
+
+model Imagen{
+  id Int @id @default(autoincrement())
+  id_generado String
+  nombre String
+  enlace String
+  idComentario Int
+  //establecemos la relacion
+  comentario Comentario @relation(fields: [idComentario], references:[id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("imagenes")
+}
+
+
+//comentarios
+model Comentario{
+  id Int @id @default(autoincrement())
+  descripcion String
+  puntaje Int// no agarra con SmallInt
+  imagenes Imagen[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@map("comentarios")
+}
