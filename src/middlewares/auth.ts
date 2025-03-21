@@ -6,7 +6,7 @@ import { UnauthorizedException } from "../exceptions/unauthorized";
 import { BadRequestException } from "../exceptions/bad-request";
 import { ErrorCode } from "../exceptions/root";
 import { NotFoundException } from "../exceptions/not-found";
-import { Usuario } from "@prisma/client";
+
 
 
 //middleware para ver si el usuario tiene un jwt valido
@@ -17,6 +17,7 @@ const authMiddleware = async (req: Request,res: Response, next: NextFunction) =>
 
     //si el token no esta presente tiramos una exception
     if(!token){//crearemos una exception
+        console.log('No tiene token')
         next(new UnauthorizedException("Unauthorized",ErrorCode.UNAUTHORIZED));
     }
     //si esta presente, entonces lo decodificaremos
@@ -27,7 +28,7 @@ const authMiddleware = async (req: Request,res: Response, next: NextFunction) =>
         //obtendremos al usuario del jwt
         const usuarioDelJwt = await prismaClient.usuario.findFirstOrThrow({
             where:{
-                id: payload.id
+                id: payload.sub
             }
         })
 
@@ -35,7 +36,7 @@ const authMiddleware = async (req: Request,res: Response, next: NextFunction) =>
             next(new NotFoundException("Error Usuario No Encontrado..",ErrorCode.USUARIO_NO_ENCONTRADO));
         }
         //lo agregamos a los request para poder usarlo donde sea
-        (req as any).usuario = usuarioDelJwt
+        req.usuario = usuarioDelJwt
         
         next()
 

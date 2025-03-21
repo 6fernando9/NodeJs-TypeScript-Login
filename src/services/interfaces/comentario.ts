@@ -5,6 +5,7 @@ export interface IImagen {
 }
 
 export interface IComentario {
+    idUsuario: number,
     puntaje: number,
     descripcion: string,
     imagenes?: IImagen[] 

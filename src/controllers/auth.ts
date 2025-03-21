@@ -35,7 +35,9 @@ export const login = async (req: Request, res: Response) => {
       sub: usuario.id,
       //faltaria roles y permisos guardarlo
     },
-    JWT_SECRET_KEY
+    JWT_SECRET_KEY,{
+      algorithm:"HS256",expiresIn:"1h"
+    }
   );
 
    const ipUsuario: string = captureIpUser(req);

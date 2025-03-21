@@ -3,11 +3,14 @@ import { PORT } from "./secrets";
 import { PrismaClient } from "@prisma/client";
 import rootRouter from "./routes";
 import { errorMiddleware } from "./middlewares/error";
+
 //importamos express
 const app: Express = express();
 
 //para las request que tengan un formato json
 app.use(express.json());
+//para el form-data
+//app.use(express.urlencoded({ extended: true }));
 
 //ruta principal clave
 app.use('/api',rootRouter);
